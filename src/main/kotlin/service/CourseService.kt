@@ -12,6 +12,11 @@ class CourseService {
     fun registerCourse(course: Course) {
         courses[course.code] = course
     }
+    fun registrado(code: String?) : Boolean{
+
+        return courses.containsKey(code)
+
+    }
 
     fun getCourse(code: String): Course? {
         return if (courses.containsKey(code)) {

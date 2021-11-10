@@ -6,7 +6,7 @@ class Student(id: String?, name: String?, email: String?, birthDate: Date?) : Pe
     Evaluation {
     private val average = 0.0
 
-    private val courses: List<Course> = ArrayList()
+    private val courses: MutableList<Course?> = ArrayList()
     private val approvedCourses: MutableMap<String?, Course?> = HashMap()
 
     override fun getAverage(): Double {
@@ -14,7 +14,7 @@ class Student(id: String?, name: String?, email: String?, birthDate: Date?) : Pe
     }
 
     fun enrollToCourse(course: Course?) {
-        //TODO implement this method
+        courses.add(course)
     }
 
     fun registerApprovedCourse(course: Course) {
@@ -22,18 +22,30 @@ class Student(id: String?, name: String?, email: String?, birthDate: Date?) : Pe
     }
 
     fun isCourseApproved(courseCode: String?): Boolean {
-        //TODO implement this method
-        return false
+
+        if(approvedCourses.containsKey(courseCode)){
+            println("Curso localizado e aprovado")
+            return true
+        }else{
+            println("curso não localizado")
+            return false
+        }
     }
 
     fun isAttendingCourse(courseCode: String?): Boolean {
-        //TODO implement this method
-        return false
+
+        return approvedCourses.containsKey(courseCode)
+
     }
 
     override fun getApprovedCourses(): List<Course>? {
-        //TODO implement this method
-        return ArrayList()
+        var aprovado = mutableListOf<Course>()
+        approvedCourses.values.forEach { curso->
+            if (curso != null){
+                aprovado.add(curso)
+            }
+        }
+        return aprovado
     }
 
     override fun toString(): String {
